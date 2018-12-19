@@ -31,12 +31,25 @@ class _Customuinfostate extends State<CustomUInfo> {
   String pwd;
 
   TextEditingController con = new TextEditingController();
+
+  FocusNode node1 = FocusNode();
+  FocusNode node2 = FocusNode();
+
+  @override
+    void initState() {
+      //添加输入框的监听
+      super.initState();
+      con.addListener((){
+        print(con.text);
+      });
+    }
   //on.text = 'sadfasdf';
   @override
     Widget build(BuildContext context) {
       return Column(
           children: <Widget>[
             TextField(
+              focusNode: node1,
               controller: con,
               autofocus: true,
               decoration: InputDecoration(
@@ -48,9 +61,9 @@ class _Customuinfostate extends State<CustomUInfo> {
                 this.username = value;
                 con.text = value;
               },
-              
             ),
             TextField(
+              focusNode: node2,
               decoration: InputDecoration(
                 labelText: 'user pwd',
                 hintText: 'input the users pwd',
@@ -66,7 +79,25 @@ class _Customuinfostate extends State<CustomUInfo> {
                   extentOffset: con.text.length,
                 );
               },
-            )
+            ),
+            Builder(builder: (ctx){
+              return Column(children: <Widget>[
+                RaisedButton(
+                  child: Text('移动焦点'),
+                  onPressed: (){
+                    FocusScope.of(context).requestFocus(node2);
+                  },
+                ),
+                RaisedButton(
+                  child: Text('关闭键盘'),
+                  onPressed: (){
+                    node1.unfocus();
+                    node2.unfocus();
+                  },
+                )
+              ],);
+            })
+        
           ],
         );
     }
