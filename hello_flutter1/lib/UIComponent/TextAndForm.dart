@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:hello_flutter1/UIComponent/Form.dart';
 
 class TextAndForm extends StatelessWidget {
 @override
@@ -27,11 +27,8 @@ class CustomUInfo extends StatefulWidget {
 class _Customuinfostate extends State<CustomUInfo> {
 
   String username;
-
   String pwd;
-
   TextEditingController con = new TextEditingController();
-
   FocusNode node1 = FocusNode();
   FocusNode node2 = FocusNode();
 
@@ -93,6 +90,14 @@ class _Customuinfostate extends State<CustomUInfo> {
                   onPressed: (){
                     node1.unfocus();
                     node2.unfocus();
+                  },
+                ),
+                RaisedButton(
+                  child: Text('表单页面跳转'),
+                  onPressed: (){
+                    Navigator.push(context, new MaterialPageRoute(builder: (context){
+                      return CustomForm();
+                    }));
                   },
                 )
               ],);
