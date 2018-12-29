@@ -18,7 +18,7 @@ class TextUI extends StatelessWidget {
             Text('hello,world'* 6,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(
               color: Colors.red,
               fontSize: 20.0,
-              height: 1.5,
+              height: 2.5,//倍数不是像素值
               fontFamily: 'Courier',
             )),
             Text.rich(TextSpan(
@@ -41,7 +41,7 @@ class TextUI extends StatelessWidget {
                   return new ImageAndIcon();
                 }));
               },
-              padding: EdgeInsets.only(left: 32.0,top: 31.0,bottom: 31.0,right: 33.0),
+              padding: EdgeInsets.only(left: 32.0,top: 31.0,bottom: 31.0,right: 15.0),
               
             ),
             FlatButton(
