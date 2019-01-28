@@ -22,12 +22,12 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   FlatButton(
-                    padding: EdgeInsets.only(top:15,right:15),
+                    padding: EdgeInsets.only(top:45,right:15),
                   child: Text(
                   '切换企业',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 19,
                     color: Colors.blue,
                   ),
                   ), onPressed: () {
