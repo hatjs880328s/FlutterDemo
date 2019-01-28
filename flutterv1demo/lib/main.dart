@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "package:flutterv1demo/hello.dart";
+import 'package:flutterv1demo/Personcenter/PersonCenterUIV3.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     Navigator.push(context, new MaterialPageRoute(builder: (context){
-      return new HelloDart();
+      return new PersonCenterUIV3();
     }));
   }
 
