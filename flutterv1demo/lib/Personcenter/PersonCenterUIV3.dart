@@ -5,14 +5,12 @@ class PersonCenterUIV3 extends StatefulWidget {
   State<StatefulWidget> createState() {
     return new PersonCenterUIV3State();
   }
-
 }
 
 // 个人中心UI
 class PersonCenterUIV3State extends State<PersonCenterUIV3> {
   @override
   Widget build(BuildContext context) {
-    //return null;
     return Container(
       margin: EdgeInsets.only(top: 15),
       child: TextField(
