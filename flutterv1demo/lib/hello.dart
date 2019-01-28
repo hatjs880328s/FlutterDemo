@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterv1demo/Model/user.dart';
 import 'package:dio/dio.dart';
-import 'dart:io';
-import 'dart:convert';
 
 class HelloDart extends StatefulWidget {
 
@@ -32,10 +30,11 @@ class HelloDartState extends State<HelloDart> {
     //return null;
   }
 
-  Future getBDInfo() async {
+  Future<String> getBDInfo() async {
     Response response;
     Dio dio = new Dio();
     response = await dio.get("https://baidu.com");
     print(response.data.toString());
+    return response.data.toString();
   }
 }
