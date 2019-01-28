@@ -11,13 +11,25 @@ class PersonCenterUIV3 extends StatefulWidget {
 class PersonCenterUIV3State extends State<PersonCenterUIV3> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 15),
-      child: TextField(
-        textAlign: TextAlign.right,
-        decoration: InputDecoration(
-          labelText: '切换企业',
-        ),
+    // return Container(
+    //   padding: EdgeInsets.only(top: 15),
+    //   child: TextField(
+    //     //textAlign: TextAlign.right,
+    //     // decoration: InputDecoration(
+    //     //   labelText: '切换企业',
+    //     // ),
+    //   ),
+    // );
+    return Material(
+      child: Column(
+        children: <Widget>[
+          TextField(
+            textAlign: TextAlign.right,
+            decoration: InputDecoration(
+              labelText: '切换企业'
+            ),
+          ),
+        ],
       ),
     );
   }
