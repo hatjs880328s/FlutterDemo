@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterv1demo/Personcenter/PersonUserSmallRow.dart';
-import 'package:flutterv1demo/Personcenter/PersonNormalCell.dart';
+import 'package:flutterv1demo/USL/Personcenter/PersonUserSmallRow.dart';
+import 'package:flutterv1demo/USL/Personcenter/PersonNormalCell.dart';
 
 class PersonCenterUIV3 extends StatefulWidget {
   @override
@@ -47,7 +47,7 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
                   boxShadow: [
                     BoxShadow(
                     color: Colors.grey,
-                    offset: Offset(2.0, 2.0),
+                    offset: Offset(0.5, 0.5),
                     blurRadius: 7.0
                     )
                     ]
@@ -56,16 +56,27 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    //color: Colors.grey,
+                    // 姓名
                     padding: EdgeInsets.only(top:25,left: 15),
                     height: 80,
-                    child: Text(
-                        'Noah_shan',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 24,
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          'Noah_shan',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                          )
+                          ),
+                        Container(
+                          margin: EdgeInsets.only(left: 170),
+                          child: CircleAvatar(
+                            radius: 23,
+                            backgroundImage: NetworkImage('http://p1.so.qhmsg.com/bdr/1080__/t0181c97fa805012506.jpg'),
+                          ),
                         ),
-                      ),
+                      ],
+                    ),
                   ),
                   //邮箱
                   PersonUserSmallRow("shanwzh@inspur.com", Icon(Icons.mail,color: Colors.grey)),
