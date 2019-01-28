@@ -38,7 +38,7 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
               ),
               // 个人信息模块
               Container(
-                height: 260,
+                height: 250,
                 margin: EdgeInsets.all(15),
                 // 装饰
                 decoration: BoxDecoration(
@@ -79,15 +79,15 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
                     ),
                   ),
                   //邮箱
-                  PersonUserSmallRow("shanwzh@inspur.com", Icon(Icons.mail,color: Colors.grey)),
+                  PersonUserSmallRow("shanwzh@inspur.com", "images/personcenter_email.png"),
                   //电话
-                  PersonUserSmallRow("18763994423", Icon(Icons.phone,color: Colors.grey)),
+                  PersonUserSmallRow("18763994423", "images/personcenter_phone.png"),
                   //工号
-                  PersonUserSmallRow("0500474", Icon(Icons.book,color: Colors.grey)),
+                  PersonUserSmallRow("0500474", "images/personcenter_userno.png"),
                   //集团名称
-                  PersonUserSmallRow("浪潮集团", Icon(Icons.compare,color: Colors.grey)),
+                  PersonUserSmallRow("浪潮集团", "images/personcenter_company.png"),
                   //部门名称
-                  PersonUserSmallRow("平台与技术部门-云+组", Icon(Icons.perm_camera_mic,color: Colors.grey)),
+                  PersonUserSmallRow("平台与技术部门-云+组", "images/personcenter_depart.png"),
                 ],
               ),
               ),

@@ -24,5 +24,10 @@ flutter:
     - images/cardbox.png
     - images/setting.png
     - images/arrowrright.png
+    - images/personcenter_company.png
+    - images/personcenter_email.png
+    - images/personcenter_phone.png
+    - images/personcenter_userno.png
+    - images/personcenter_depart.png
 
 
