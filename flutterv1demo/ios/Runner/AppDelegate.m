@@ -8,11 +8,12 @@
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GeneratedPluginRegistrant registerWithRegistry:self];
 
-    FlutterSwiftViewController *con = [[FlutterSwiftViewController alloc] init];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:con];
-    self.window.frame = UIScreen.mainScreen.bounds;
-    [self.window makeKeyAndVisible];
-    return true;
+    // FlutterSwiftViewController *con = [[FlutterSwiftViewController alloc] init];
+    // self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:con];
+    // self.window.frame = UIScreen.mainScreen.bounds;
+    // [self.window makeKeyAndVisible];
+    // return true;
+    return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (int)getBatteryLevel {
