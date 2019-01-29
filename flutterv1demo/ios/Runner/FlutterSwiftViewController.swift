@@ -15,13 +15,10 @@ import UIKit
 
 class FlutterSwiftViewController: UIViewController,FlutterStreamHandler {
 
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "hello,flutterswift"
         self.view.backgroundColor = UIColor.white
-        // Do any additional setup after loading the view.
         createVw()
     }
 

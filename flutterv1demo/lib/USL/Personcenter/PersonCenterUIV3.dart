@@ -22,8 +22,15 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   FlatButton(
-                    padding: EdgeInsets.only(top:45,right:15),
-                  child: Text(
+                    padding: EdgeInsets.only(top:25,right:15),
+                    child:Text('🔙back'),
+                      onPressed:() {
+                        Navigator.pop(context);
+                    }
+                ),
+                  FlatButton(
+                    padding: EdgeInsets.only(top:25,right:15),
+                    child: Text(
                   '切换企业',
                   textAlign: TextAlign.left,
                   style: TextStyle(
