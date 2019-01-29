@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/cupertino.dart';
+import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestUti.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -181,5 +182,7 @@ class LoginState extends State<Login> {
     pwdFo.unfocus();
     print(nameCon.text);
     print(pwdCon.text);
+    var resutInfo = IIHTTPRequestUti().requestToken('shanwzh', 'aaaaaa');
+    print(resutInfo);
   }
 }
