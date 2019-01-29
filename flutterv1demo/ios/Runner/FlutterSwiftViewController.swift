@@ -24,8 +24,10 @@ class FlutterSwiftViewController: UIViewController,FlutterStreamHandler {
 
     func createVw() {
         let tap = UIButton()
-        tap.frame = CGRect(x: 100, y: 100, width: 50, height: 50)
-        tap.backgroundColor = UIColor.red
+        tap.frame.size = CGSize(width: 200, height: 50)
+        tap.center = self.view.center
+        tap.backgroundColor = UIColor.gray
+        tap.setTitle("前往flutter页面", for: UIControl.State.normal)
         self.view.addSubview(tap)
         tap.addTarget(self, action: #selector(self.tapAction), for: UIControl.Event.touchUpInside)
     }
@@ -58,6 +60,10 @@ class FlutterSwiftViewController: UIViewController,FlutterStreamHandler {
         batteryChannel.setMethodCallHandler { (call, result) in
             if call.method == "getBatteryLevel" {
                 result(90)
+            }
+            if call.method == "pop2Root" {
+                flutterCon.navigationController?.isNavigationBarHidden = false
+                flutterCon.navigationController?.popViewController(animated: true)
             }
         }
     }
