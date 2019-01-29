@@ -16,6 +16,10 @@ class LoginState extends State<Login> {
   TextEditingController nameCon = TextEditingController();
   //密码的controller
   TextEditingController pwdCon = TextEditingController();
+  //用户名focus
+  FocusNode nameFo = FocusNode();
+  //密码focus
+  FocusNode pwdFo = FocusNode();
 
 
   @override
@@ -38,7 +42,7 @@ class LoginState extends State<Login> {
           ),
           //欢迎
           Container(
-            padding: EdgeInsets.only(top:15, left: 30),
+            padding: EdgeInsets.only(top:10, left: 30),
             child: Text(
               '欢迎使用云+',
               style: TextStyle(
@@ -51,6 +55,7 @@ class LoginState extends State<Login> {
           Container(
             padding: EdgeInsets.only(left: 30, top: 40, right: 30),
             child: TextField(
+              focusNode:nameFo,
               controller:nameCon,
               decoration:InputDecoration(
                 labelText: '账户/邮箱/手机号',
@@ -66,8 +71,10 @@ class LoginState extends State<Login> {
           Container(
             padding: EdgeInsets.only(left: 30, top: 40, right: 30),
             child: TextField(
+              focusNode:pwdFo,
               controller:pwdCon,
-              decoration:InputDecoration(
+              obscureText: true,
+              decoration:InputDecoration( 
                 labelText: '密码',
                 labelStyle: TextStyle(
                   fontSize: 18,
@@ -124,13 +131,12 @@ class LoginState extends State<Login> {
                   ),
                 ),
                 onPressed: () {
-                  //nameCon.text;
-                  print(nameCon.text);
+                  login();
                 }
               ),
               ),
             ),
-          // 注册
+          //注册
           Container(
             alignment: Alignment.center,
             padding: EdgeInsets.only(top: 20),
@@ -164,7 +170,16 @@ class LoginState extends State<Login> {
     );
   }
 
+/// 注册事件
   void signIn() {
     print('去注册...');
+  }
+
+///登录事件
+  void login() {
+    nameFo.unfocus();
+    pwdFo.unfocus();
+    print(nameCon.text);
+    print(pwdCon.text);
   }
 }
