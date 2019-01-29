@@ -5,14 +5,8 @@ import 'package:flutter/services.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
-  
-
-  //String _batteryLevel = 'Unknown battery level.';
-
   @override
   Widget build(BuildContext context) {
-    //_getBatteryLevel();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -22,8 +16,6 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-
-  
 }
 
 class MyHomePage extends StatefulWidget {
@@ -38,13 +30,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  static const platform = const MethodChannel('com.inspur.www/iiplatform');
+  static const platform = const MethodChannel('com.inspur.www/iiplatform1');
+
+  static const EventChannel eventChannel = const EventChannel('com.inspur.www/iiplatform');
 
   void _incrementCounter() {
     _getBatteryLevel();
-    // Navigator.push(context, new MaterialPageRoute(builder: (context){
-    //   return new PersonCenterUIV3();
-    // }));
+    Navigator.push(context, new MaterialPageRoute(builder: (context){
+      return new PersonCenterUIV3();
+    }));
   }
 
   Future<Null> _getBatteryLevel() async {
@@ -57,6 +51,22 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     print("invoke success!!!");
     print(batteryLevel);
+  }
+
+  // 渲染前的操作，类似viewDidLoad
+  @override
+  void initState() {
+    super.initState();
+    eventChannel.receiveBroadcastStream(12345).listen(_onEvent,onError: _onError);
+  }
+
+  // 回调事件
+  void _onEvent(Object event) {
+
+  }
+  // 错误返回
+  void _onError(Object error) {
+
   }
 
   @override

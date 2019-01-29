@@ -1,36 +1,18 @@
 #include "AppDelegate.h"
 #include "GeneratedPluginRegistrant.h"
+#include "Runner-Swift.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GeneratedPluginRegistrant registerWithRegistry:self];
-    FlutterViewController* controller = (FlutterViewController*)self.window.rootViewController;
 
-    FlutterMethodChannel* batteryChannel = [FlutterMethodChannel
-                                            methodChannelWithName:@"com.inspur.www/iiplatform"
-                                            binaryMessenger:controller];
-
-    [batteryChannel setMethodCallHandler:^(FlutterMethodCall* call, FlutterResult result) {
-        if ([@"getBatteryLevel" isEqualToString:call.method]) {
-            int batteryLevel = [self getBatteryLevel];
-
-            if (batteryLevel == -1) {
-                result([FlutterError errorWithCode:@"UNAVAILABLE"
-                                           message:@"电池信息不可用"
-                                           details:nil]);
-            } else {
-                result(@(batteryLevel));
-            }
-        } else {
-            result(FlutterMethodNotImplemented);
-        }
-    }];
-
-
-
-    return [super application:application didFinishLaunchingWithOptions:launchOptions];
+    FlutterSwiftViewController *con = [[FlutterSwiftViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:con];
+    self.window.frame = UIScreen.mainScreen.bounds;
+    [self.window makeKeyAndVisible];
+    return true;
 }
 
 - (int)getBatteryLevel {
