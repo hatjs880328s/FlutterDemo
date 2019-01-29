@@ -177,12 +177,12 @@ class LoginState extends State<Login> {
   }
 
 ///登录事件
-  void login() {
+  Future login() async {
     nameFo.unfocus();
     pwdFo.unfocus();
     print(nameCon.text);
     print(pwdCon.text);
-    var resutInfo = IIHTTPRequestUti().requestToken('shanwzh', 'aaaaaa');
+    var resutInfo = await IIHTTPRequestUti().requestToken('shanwzh', 'aaaaaa');
     print(resutInfo);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:_http';
+
 import 'package:dio/dio.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestHeaderUti.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPStaticInfos.dart';
@@ -22,7 +24,7 @@ class IIHTTPRequestUti {
       Options options = Options(
         headers:headers,
         data:parameters,
-        //contentType:ContentType.
+        contentType: ContentType.parse("application/x-www-form-urlencoded"),
       );
       try {
         response=await dio.post(
