@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutterv1demo/USL/Personcenter/PersonCenterUIV3.dart';
-// import 'package:flutterv1demo/hello.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+  
+
+  //String _batteryLevel = 'Unknown battery level.';
+
   @override
   Widget build(BuildContext context) {
+    //_getBatteryLevel();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -17,6 +22,8 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
+
+  
 }
 
 class MyHomePage extends StatefulWidget {
@@ -31,10 +38,25 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  static const platform = const MethodChannel('com.inspur.www/iiplatform');
+
   void _incrementCounter() {
-    Navigator.push(context, new MaterialPageRoute(builder: (context){
-      return new PersonCenterUIV3();
-    }));
+    _getBatteryLevel();
+    // Navigator.push(context, new MaterialPageRoute(builder: (context){
+    //   return new PersonCenterUIV3();
+    // }));
+  }
+
+  Future<Null> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final int result = await platform.invokeMethod('getBatteryLevel');
+      batteryLevel = 'Battery level at $result % .';
+    } on PlatformException catch (e) {
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+    }
+    print("invoke success!!!");
+    print(batteryLevel);
   }
 
   @override
