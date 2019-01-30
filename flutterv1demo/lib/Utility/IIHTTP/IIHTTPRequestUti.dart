@@ -35,6 +35,8 @@ class IIHTTPRequestUti {
         return tokenIns;
       } on Exception catch (e) {
         throw e;
+      } on Error {
+        throw Exception();
       }
       
   }
