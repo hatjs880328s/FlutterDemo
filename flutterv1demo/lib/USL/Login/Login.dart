@@ -1,7 +1,12 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/cupertino.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestUti.dart';
+import 'package:flutterv1demo/Model/LoginToken.dart';
+import 'package:flutterv1demo/Utility/IIGlobal/IIGlobalInfo.dart';
+import 'package:flutterv1demo/USL/Personcenter/PersonCenterUIV3.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -178,11 +183,28 @@ class LoginState extends State<Login> {
 
 ///登录事件
   Future login() async {
+    Fluttertoast.showToast(
+      msg: '登录中,请稍候...',
+      gravity: ToastGravity.CENTER,
+      fontSize: 17,
+      backgroundColor: Colors.grey,
+      textColor: Colors.white,
+      timeInSecForIos: 100,
+    );
     nameFo.unfocus();
     pwdFo.unfocus();
-    print(nameCon.text);
-    print(pwdCon.text);
-    var resutInfo = await IIHTTPRequestUti().requestToken('shanwzh', 'aaaaaa');
-    print(resutInfo);
+    LoginToken resutInfo = await IIHTTPRequestUti().requestToken(nameCon.text, pwdCon.text);
+    await retainData(resutInfo.toJson().toString());
+    Fluttertoast.cancel();
+    Navigator.push(context, new MaterialPageRoute(builder: (context) {
+      return new PersonCenterUIV3();
+    }));
+
+  }
+
+// 数据持久化
+  Future retainData(String jsonData) async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString(IIGlobalInfo.tokenKey, jsonData);
   }
 }

@@ -1,5 +1,5 @@
 import 'dart:_http';
-
+import 'package:flutterv1demo/Model/LoginToken.dart';
 import 'package:dio/dio.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestHeaderUti.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPStaticInfos.dart';
@@ -8,7 +8,7 @@ import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPStaticInfos.dart';
 class IIHTTPRequestUti {
 
   // 请求token
-  Future<String> requestToken(
+  Future<LoginToken> requestToken(
     String userName,
     String pwd
     ) async {
@@ -31,10 +31,11 @@ class IIHTTPRequestUti {
         IIHTTPStaticInfos.tokenUrl,
         options:options,
         );
-        return response.data.toString();
+        LoginToken tokenIns = LoginToken.fromJson(response.data);
+        return tokenIns;
       } on Exception catch (e) {
         print(e);
-        return e.toString();
+        return null;
       }
       
   }

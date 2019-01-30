@@ -12,6 +12,10 @@ dependencies:
   cupertino_icons: ^0.1.2
   dio: any
   flutter_screenutil: any
+  # NSUserDefault
+  shared_preferences: any
+  # toast
+  fluttertoast: ^2.2.11
 
 dev_dependencies:
   flutter_test:
