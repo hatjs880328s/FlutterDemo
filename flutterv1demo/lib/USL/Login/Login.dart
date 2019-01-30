@@ -1,12 +1,9 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/cupertino.dart';
-import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestUti.dart';
-import 'package:flutterv1demo/Model/LoginToken.dart';
-import 'package:flutterv1demo/Utility/IIGlobal/IIGlobalInfo.dart';
 import 'package:flutterv1demo/USL/Personcenter/PersonCenterUIV3.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutterv1demo/BLL/Login/LoginBll.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -26,6 +23,20 @@ class LoginState extends State<Login> {
   FocusNode nameFo = FocusNode();
   //密码focus
   FocusNode pwdFo = FocusNode();
+
+  //viewdidload - 添加监听&处理小尾巴的显示与否
+  @override 
+  void initState() {
+    super.initState();
+    nameFo.addListener((){
+      setState(() {
+      });
+    });
+    pwdFo.addListener((){
+      setState(() {
+      });
+    });
+  }
 
 
   @override
@@ -65,6 +76,12 @@ class LoginState extends State<Login> {
               controller:nameCon,
               decoration:InputDecoration(
                 labelText: '账户/邮箱/手机号',
+                suffixIcon: !nameFo.hasFocus ? null : IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed:() {
+                    nameCon.clear();
+                  }
+                ),
                 labelStyle: TextStyle(
                   fontSize: 18,
                   color: Colors.grey,
@@ -82,6 +99,12 @@ class LoginState extends State<Login> {
               obscureText: true,
               decoration:InputDecoration( 
                 labelText: '密码',
+                suffixIcon: !pwdFo.hasFocus ? null : IconButton(
+                  icon: Icon(Icons.clear),
+                  onPressed:() {
+                    pwdCon.clear();
+                  }
+                ),
                 labelStyle: TextStyle(
                   fontSize: 18,
                   color: Colors.grey,
@@ -193,18 +216,21 @@ class LoginState extends State<Login> {
     );
     nameFo.unfocus();
     pwdFo.unfocus();
-    LoginToken resutInfo = await IIHTTPRequestUti().requestToken(nameCon.text, pwdCon.text);
-    await retainData(resutInfo.toJson().toString());
+    bool result = await LoginBll().login(nameCon.text, pwdCon.text);
     Fluttertoast.cancel();
-    Navigator.push(context, new MaterialPageRoute(builder: (context) {
+    if (result == true) {
+      Navigator.push(context, new MaterialPageRoute(builder: (context) {
       return new PersonCenterUIV3();
     }));
-
-  }
-
-// 数据持久化
-  Future retainData(String jsonData) async {
-    var prefs = await SharedPreferences.getInstance();
-    await prefs.setString(IIGlobalInfo.tokenKey, jsonData);
+    } else { 
+      Fluttertoast.showToast(
+        msg: '登录失败.',
+        gravity: ToastGravity.CENTER,
+        fontSize: 17,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        timeInSecForIos: 1,
+      );
+    }
   }
 }

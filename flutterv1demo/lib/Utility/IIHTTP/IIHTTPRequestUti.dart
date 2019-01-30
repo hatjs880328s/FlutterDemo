@@ -34,8 +34,7 @@ class IIHTTPRequestUti {
         LoginToken tokenIns = LoginToken.fromJson(response.data);
         return tokenIns;
       } on Exception catch (e) {
-        print(e);
-        return null;
+        throw e;
       }
       
   }
