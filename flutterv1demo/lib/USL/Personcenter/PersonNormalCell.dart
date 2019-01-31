@@ -47,7 +47,8 @@ class PersonNoramlCellState extends State<PersonNoramlCell> {
           ),
           // 箭头
           Container(
-            margin: EdgeInsets.only(left: 270),
+            //alignment: Alignment.bottomRight,
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width - 150),
             child: IconButton(
               icon:Image(
               image: AssetImage("images/arrowrright.png"),

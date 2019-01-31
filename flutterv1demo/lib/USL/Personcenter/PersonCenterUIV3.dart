@@ -22,14 +22,14 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   FlatButton(
-                    padding: EdgeInsets.only(top:25,right:15),
+                    padding: EdgeInsets.only(top:getStateHeight() + 15,right:15),
                     child:Text('🔙back'),
                       onPressed:() {
                         Navigator.pop(context);
                     }
                 ),
                   FlatButton(
-                    padding: EdgeInsets.only(top:25,right:15),
+                    padding: EdgeInsets.only(top:getStateHeight() + 15,right:15),
                     child: Text(
                   '切换企业',
                   textAlign: TextAlign.left,
@@ -115,6 +115,15 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
         ],
       ),
     );
+  }
+
+/// 获取状态栏高度
+  double getStateHeight() {
+    return MediaQuery.of(context).padding.top;
+  }
+/// 屏幕宽度
+  double getWeightScreen() {
+    return MediaQuery.of(context).size.width;
   }
 
 }
