@@ -14,22 +14,22 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
   @override
   Widget build(BuildContext context) {
         return Material(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               // 切换企业按钮
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   FlatButton(
-                    padding: EdgeInsets.only(top:getStateHeight() + 15,right:15),
+                    padding: EdgeInsets.only(right:15),
                     child:Text('🔙back'),
                       onPressed:() {
                         Navigator.pop(context);
                     }
                 ),
                   FlatButton(
-                    padding: EdgeInsets.only(top:getStateHeight() + 15,right:15),
+                    padding: EdgeInsets.only(right:15),
                     child: Text(
                   '切换企业',
                   textAlign: TextAlign.left,
@@ -119,6 +119,7 @@ class PersonCenterUIV3State extends State<PersonCenterUIV3> {
 
 /// 获取状态栏高度
   double getStateHeight() {
+    print(MediaQuery.of(context).padding.top);
     return MediaQuery.of(context).padding.top;
   }
 /// 屏幕宽度

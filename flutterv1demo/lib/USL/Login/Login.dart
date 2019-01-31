@@ -43,8 +43,8 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     //return null;
     return Material(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           //你好
           Container(
