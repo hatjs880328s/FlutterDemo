@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutterv1demo/Model/IIExcMODELS/IIExcMainListModel.dart';
 import 'package:flutterv1demo/BLL/IIExc/IIExcBLL.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 /// 邮箱的主要列表页面
 /// 1.需要有下拉舒心 & 上拉加载
@@ -35,7 +36,46 @@ class IIExcMainListState extends State<IIExcMainList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.naviTitle,),
-        
+        actions: [
+          Container(
+            width: 40,
+            height: 30,
+            child:FlatButton(
+            padding: EdgeInsets.only(right: 0),
+            child: Icon(Icons.email,color: Colors.white),
+            onPressed: () {
+              print('设置按钮被点击了');
+              Fluttertoast.showToast(
+              msg: '设置按钮被点击了',
+              gravity: ToastGravity.CENTER,
+              fontSize: 17,
+              backgroundColor: Colors.grey,
+              textColor: Colors.white,
+              timeInSecForIos: 1,
+              );
+            },
+            )
+          ),
+          Container(
+            width: 60,
+            height: 30,
+            child:FlatButton(
+            padding: EdgeInsets.only(right: 0),
+            child: Icon(Icons.settings,color: Colors.white),
+            onPressed: () {
+              print('设置按钮被点击了');
+              Fluttertoast.showToast(
+              msg: '设置按钮被点击了',
+              gravity: ToastGravity.CENTER,
+              fontSize: 17,
+              backgroundColor: Colors.grey,
+              textColor: Colors.white,
+              timeInSecForIos: 1,
+            );
+            },
+            )
+          ),
+        ],
       ),
       body: ListView.separated(
         itemCount:widget.models.length,
@@ -67,6 +107,7 @@ class IIExcMainListState extends State<IIExcMainList> {
                   widget.models[index].displaySender,
                   style: TextStyle(
                     fontSize: 16,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black,
                   ),
                   overflow: TextOverflow.ellipsis
