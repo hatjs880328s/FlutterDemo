@@ -11,9 +11,9 @@ class IIExcMainList extends StatefulWidget {
 
 class IIExcMainListState extends State<IIExcMainList> {
 
-  TextEditingController nameCon = TextEditingController();
+  TextEditingController nameCon = TextEditingController(text: 'shanwzh@inspur.com');
 
-  TextEditingController pwdCon = TextEditingController();
+  TextEditingController pwdCon = TextEditingController(text: 'sadfasdfasdf');
 
   FocusNode nameNode = FocusNode();
 

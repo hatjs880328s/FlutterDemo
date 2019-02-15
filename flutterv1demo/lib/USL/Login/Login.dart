@@ -17,9 +17,9 @@ class LoginState extends State<Login> {
   //注册点击手势
   TapGestureRecognizer _tapGestureRecognizer = new TapGestureRecognizer();
   //用户名的controller
-  TextEditingController nameCon = TextEditingController();
+  TextEditingController nameCon = TextEditingController(text: "shanwzh");
   //密码的controller
-  TextEditingController pwdCon = TextEditingController();
+  TextEditingController pwdCon = TextEditingController(text: "aaaaaa");
   //用户名focus
   FocusNode nameFo = FocusNode();
   //密码focus

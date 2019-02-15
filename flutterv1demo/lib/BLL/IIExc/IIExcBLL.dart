@@ -1,6 +1,8 @@
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestUti.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestEnum.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPStaticInfos.dart';
+import "package:flutterv1demo/Model/IIExcMODELS/IIExcFolderModel.dart";
+import 'package:flutterv1demo/Model/IIExcMODELS/IIExcMainListModel.dart';
 // import 'dart:convert';
 // import 'package:convert/convert.dart';
 // import 'package:crypto/crypto.dart';
@@ -15,19 +17,19 @@ class IIExcBll {
     bool result = await IIHTTPRequestUti().request(IIHTTPRequestEnum.post, params, requestUrl);
     //登录成功之后立马获取文件夹信息
     List<dynamic> mapInfo = await getFolders();
-    print(mapInfo);
-    Map<String, dynamic> maps = mapInfo[0];
-    print(maps);
+    List<IIExcFolderModel> models = [];
+    for (int i = 0 ; i < mapInfo.length ; i++) {
+      IIExcFolderModel model = IIExcFolderModel.fromJson(mapInfo[0]);
+      models.add(model);
+    }
+    // 获取第一页数据
+    dynamic resultList = await getListByPageNum(
+      models.first.id,
+      20,
+      0
+    );
     return true;
   }
-
-    // md5 加密
-// String generateMd5(String data) {
-//   var content = new Utf8Encoder().convert(data);
-//   var digest = md5.convert(content);
-//   // 这里其实就是 digest.toString()
-//   return hex.encode(digest.bytes);
-// }
 
   /// 获取所有文件信息
   Future<List<dynamic>> getFolders() async {
@@ -39,5 +41,27 @@ class IIExcBll {
       print(e);
       return null;
     }
+  }
+
+/// 分页获取数据
+  Future<List<IIExcMainListModel>> getListByPageNum (
+    String folderid,
+    int pageSize,
+    int pageOffset,
+    ) async {
+
+      String url = IIHTTPStaticInfos.iiexcList;
+      Map<String, dynamic> params = {"folderId": folderid, "pageSize": pageSize, "offset": pageOffset};
+      try  {
+        List<dynamic> result = await IIHTTPRequestUti().request(IIHTTPRequestEnum.gEt, params, url);
+        List<IIExcMainListModel> models = [];
+        for (int i = 0 ; i < result.length ; i++) {
+          IIExcMainListModel model = IIExcMainListModel.fromJson(result[i]);
+          models.add(model);
+        }
+        return models;
+      } on Exception {
+        return null;
+      }
   }
 }

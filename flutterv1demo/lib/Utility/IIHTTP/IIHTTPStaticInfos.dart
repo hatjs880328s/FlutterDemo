@@ -6,4 +6,5 @@ class IIHTTPStaticInfos {
   static String tokenUrl = "https://id.inspuronline.com/oauth2.0/token";
   static String iiexcLogin = "https://emm-inspur.inspuronline.com/api/ews/v1.0/UserProfile/MailBind";
   static String iiexcFolder = "https://emm-inspur.inspuronline.com/api/ews/v1.0/Folder";
+  static String iiexcList = "https://emm-inspur.inspuronline.com/api/ews/v1.0/Mail/List";
 }
