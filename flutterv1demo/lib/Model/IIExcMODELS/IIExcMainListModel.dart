@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:intl/intl.dart';
 
 part 'IIExcMainListModel.g.dart';
 
@@ -25,12 +26,21 @@ class IIExcMainListModel {
   // size
   int size;
   // 发送事件
-  String creationDate;
+  DateTime creationDate;
   // timestemp
   double creationTimestamp;
+  // 摘要
+  String textBody;
 
 
   factory IIExcMainListModel.fromJson(Map<String,dynamic> json) => _$IIExcMainListModelFromJson(json);  
 
   Map<String, dynamic> toJson() => _$IIExcMainListModelToJson(this);
+
+/// 格式化时间
+  String getRealDate() {
+    var formatter = new DateFormat('MM月dd日');
+    String formatted = formatter.format(creationDate);
+    return formatted;
+  }
 }

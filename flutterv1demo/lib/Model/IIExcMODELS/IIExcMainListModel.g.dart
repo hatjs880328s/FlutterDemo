@@ -17,8 +17,11 @@ IIExcMainListModel _$IIExcMainListModelFromJson(Map<String, dynamic> json) {
     ..isEncrypted = json['isEncrypted'] as bool
     ..isSigned = json['isSigned'] as bool
     ..size = json['size'] as int
-    ..creationDate = json['creationDate'] as String
-    ..creationTimestamp = (json['creationTimestamp'] as num)?.toDouble();
+    ..creationDate = json['creationDate'] == null
+        ? null
+        : DateTime.parse(json['creationDate'] as String)
+    ..creationTimestamp = (json['creationTimestamp'] as num)?.toDouble()
+    ..textBody = json['textBody'] as String;
 }
 
 Map<String, dynamic> _$IIExcMainListModelToJson(IIExcMainListModel instance) =>
@@ -32,6 +35,7 @@ Map<String, dynamic> _$IIExcMainListModelToJson(IIExcMainListModel instance) =>
       'isEncrypted': instance.isEncrypted,
       'isSigned': instance.isSigned,
       'size': instance.size,
-      'creationDate': instance.creationDate,
-      'creationTimestamp': instance.creationTimestamp
+      'creationDate': instance.creationDate?.toIso8601String(),
+      'creationTimestamp': instance.creationTimestamp,
+      'textBody': instance.textBody
     };

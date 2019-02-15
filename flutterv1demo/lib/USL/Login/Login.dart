@@ -221,8 +221,7 @@ class LoginState extends State<Login> {
     Fluttertoast.cancel();
     if (result == true) {
       Navigator.push(context, new MaterialPageRoute(builder: (context) {
-        return new IIExcMainList();
-      //return new PersonCenterUIV3();
+        return new IIExcLogin();
     }));
     } else { 
       Fluttertoast.showToast(

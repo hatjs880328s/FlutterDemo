@@ -3,6 +3,7 @@ import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestEnum.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPStaticInfos.dart';
 import "package:flutterv1demo/Model/IIExcMODELS/IIExcFolderModel.dart";
 import 'package:flutterv1demo/Model/IIExcMODELS/IIExcMainListModel.dart';
+import 'package:flutterv1demo/Model/IIExcMODELS/IIExcBLLModel.dart';
 // import 'dart:convert';
 // import 'package:convert/convert.dart';
 // import 'package:crypto/crypto.dart';
@@ -11,7 +12,7 @@ import 'package:flutterv1demo/Model/IIExcMODELS/IIExcMainListModel.dart';
 class IIExcBll {
 
   /// 登录操作 - 获取下来信息只需要第一个文件夹id [这里的密码强制使用处理过后的]
-  Future<bool> login(String name, String pwd) async {
+  Future<IIExcBLLModel> login(String name, String pwd) async {
     Map<String, dynamic> params = {"email": name, "password": "H6vZ+nfJV0Ins8hoDayCaA=="};
     String requestUrl = IIHTTPStaticInfos.iiexcLogin;
     bool result = await IIHTTPRequestUti().request(IIHTTPRequestEnum.post, params, requestUrl);
@@ -23,12 +24,16 @@ class IIExcBll {
       models.add(model);
     }
     // 获取第一页数据
-    dynamic resultList = await getListByPageNum(
+    List<IIExcMainListModel> resultList = await getListByPageNum(
       models.first.id,
       20,
       0
     );
-    return true;
+    // 返回数据
+    IIExcBLLModel resultModel = IIExcBLLModel();
+    resultModel.models = resultList;
+    resultModel.folderid = models.first.id;
+    return resultModel;
   }
 
   /// 获取所有文件信息

@@ -1,15 +1,18 @@
 import "package:flutter/material.dart";
 import 'package:flutterv1demo/BLL/IIExc/IIExcBLL.dart';
+import 'package:flutterv1demo/USL/Exchange/IIExcMainList.dart';
+import 'package:flutterv1demo/Model/IIExcMODELS/IIExcBLLModel.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 /// 登录页面
-class IIExcMainList extends StatefulWidget {
+class IIExcLogin extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return IIExcMainListState();
+    return IIExcLoginState();
   }
 }
 
-class IIExcMainListState extends State<IIExcMainList> {
+class IIExcLoginState extends State<IIExcLogin> {
 
   TextEditingController nameCon = TextEditingController(text: 'shanwzh@inspur.com');
 
@@ -40,7 +43,7 @@ class IIExcMainListState extends State<IIExcMainList> {
           //第一个图片
           Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.only(top: 120),
+            padding: EdgeInsets.only(top: 91),
             child: Image(image: AssetImage("images/exchangelogin_top.png"))
           ),  
           // 用户名输入
@@ -119,8 +122,21 @@ class IIExcMainListState extends State<IIExcMainList> {
 
 /// 登录
   void loginExc() async {
+    Fluttertoast.showToast(
+      msg: '登录中,请稍候...',
+      gravity: ToastGravity.CENTER,
+      fontSize: 17,
+      backgroundColor: Colors.grey,
+      textColor: Colors.white,
+      timeInSecForIos: 100,
+    );
     String name = nameCon.text;
     String pwd = pwdCon.text;
-    IIExcBll().login(name, pwd);
+    IIExcBLLModel model = await IIExcBll().login(name, pwd);
+    Fluttertoast.cancel();
+    Navigator.push(context, new MaterialPageRoute(builder: (context) {
+      return new IIExcMainList('收件箱', model.models, model.folderid);
+    }));
+
   } 
 }
