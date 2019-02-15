@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:flutterv1demo/BLL/IIExc/IIExcBLL.dart';
 
 /// 登录页面
 class IIExcMainList extends StatefulWidget {
@@ -72,6 +73,7 @@ class IIExcMainListState extends State<IIExcMainList> {
             child: TextField(
               focusNode: pwdNode,
               controller: pwdCon,
+              obscureText: true,
               decoration: InputDecoration(
                 labelText: "邮箱密码",
                 suffixIcon: !pwdNode.hasFocus ? null : IconButton(
@@ -115,9 +117,10 @@ class IIExcMainListState extends State<IIExcMainList> {
     );
   }
 
-  void loginExc() {
+/// 登录
+  void loginExc() async {
     String name = nameCon.text;
     String pwd = pwdCon.text;
-
+    IIExcBll().login(name, pwd);
   } 
 }

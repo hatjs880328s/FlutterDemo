@@ -1,16 +1,22 @@
 // HTTP请求的header & parmas
+import 'package:flutterv1demo/BLL/Login/LoginBll.dart';
+import 'package:flutterv1demo/Model/LoginToken.dart';
 class IIHTTPRequestHeaderUti {
 
   /// 获取普通header
-  Map<String,String> getHttpHeader() {
-    Map header = Map();
-    header['token'] = 'sdafasdf';
+  Future<Map<String,String>> getHttpHeader() async {
+    Map<String,String> header = Map();
+    // 添加token
+    LoginToken tokenInfo = await LoginBll().getLoginData();
+    header["Authorization"] = "bearer " + tokenInfo.accessToken;
+    // 添加enterpriseid
+    header["X-ECC-Current-Enterprise"] = "10000";
     return header;
   }
 
   /// 获取普通params
   Map<String,String> getHttpParams() {
-    Map header = Map();
+    Map<String,String> header = Map();
     header['token'] = 'sdafasdf';
     return header;
   }

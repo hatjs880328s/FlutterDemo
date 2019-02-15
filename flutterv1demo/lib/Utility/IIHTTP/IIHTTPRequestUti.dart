@@ -1,4 +1,5 @@
-import 'dart:_http';
+//import 'dart:_http';
+import 'dart:io';
 import 'package:flutterv1demo/Model/LoginToken.dart';
 import 'package:dio/dio.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestHeaderUti.dart';
@@ -52,8 +53,8 @@ class IIHTTPRequestUti {
       dynamic result;
       // 处理参数虚序列化方式
       ContentType paraSeType = method == IIHTTPRequestEnum.post ? ContentType.json : ContentType.parse("application/x-www-form-urlencoded");
-      Map<String,dynamic> headers = IIHTTPRequestHeaderUti().getHttpHeader();
-      Options opt = Options(headers: headers, data: params, contentType: paraSeType);
+      Map<String,dynamic> headers = await IIHTTPRequestHeaderUti().getHttpHeader();
+      Options opt = Options(headers: headers, data: params);
       try  {
         if (method == IIHTTPRequestEnum.post) {
           response = await dio.post(requestURL, options: opt);
@@ -64,8 +65,10 @@ class IIHTTPRequestUti {
         }
         return result;
       } on Exception catch (e) {
+        print(e);
         throw e;
-      } on Error {
+      } on Error catch (error){
+        print(error);
         throw Exception();
       }
   }
