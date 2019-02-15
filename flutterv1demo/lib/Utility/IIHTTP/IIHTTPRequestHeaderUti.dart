@@ -11,6 +11,12 @@ class IIHTTPRequestHeaderUti {
     header["Authorization"] = "bearer " + tokenInfo.accessToken;
     // 添加enterpriseid
     header["X-ECC-Current-Enterprise"] = "10000";
+    // 添加语言
+    header["Accept-Language"] = "zh-Hans";
+    // 添加代理
+    header["User-Agent"] = "iOS/12.1(Apple x86_64) CloudPlus_Phone/3.0.0";
+    // 添加设备ID
+    header["X-Device-ID"] = "0cb0a5d5c973b66f9ebe710f3f0c4b0210336d56";
     return header;
   }
 
