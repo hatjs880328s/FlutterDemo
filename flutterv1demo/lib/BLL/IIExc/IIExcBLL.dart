@@ -15,7 +15,7 @@ class IIExcBll {
   Future<IIExcBLLModel> login(String name, String pwd) async {
     Map<String, dynamic> params = {"email": name, "password": "H6vZ+nfJV0Ins8hoDayCaA=="};
     String requestUrl = IIHTTPStaticInfos.iiexcLogin;
-    bool result = await IIHTTPRequestUti().request(IIHTTPRequestEnum.post, params, requestUrl);
+    await IIHTTPRequestUti().request(IIHTTPRequestEnum.post, params, requestUrl);
     //登录成功之后立马获取文件夹信息
     List<dynamic> mapInfo = await getFolders();
     List<IIExcFolderModel> models = [];

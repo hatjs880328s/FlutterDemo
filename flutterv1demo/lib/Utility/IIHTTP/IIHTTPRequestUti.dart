@@ -52,7 +52,7 @@ class IIHTTPRequestUti {
       Response response;
       dynamic result;
       // 处理参数虚序列化方式
-      ContentType paraSeType = method == IIHTTPRequestEnum.post ? ContentType.json : ContentType.parse("application/x-www-form-urlencoded");
+      //ContentType paraSeType = method == IIHTTPRequestEnum.post ? ContentType.json : ContentType.parse("application/x-www-form-urlencoded");
       Map<String,dynamic> headers = await IIHTTPRequestHeaderUti().getHttpHeader();
       Options opt = Options(headers: headers, data: params);
       try  {

@@ -24,16 +24,16 @@ class IIExcLoginState extends State<IIExcLogin> {
 
   @override 
     void initState() {
-      super.initState();
-      nameNode.addListener(() {
-        setState() {
-        }
+    super.initState();
+    nameNode.addListener((){
+      setState(() {
       });
-      pwdNode.addListener(() {
-        setState() {
-        }
+    });
+    pwdNode.addListener((){
+      setState(() {
       });
-    }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

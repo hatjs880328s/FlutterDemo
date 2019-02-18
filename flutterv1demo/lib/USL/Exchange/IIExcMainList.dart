@@ -8,8 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 /// 1.需要有下拉舒心 & 上拉加载
 /// 
 /// 
-/// 
-
+// ignore: must_be_immutable
 class IIExcMainList extends StatefulWidget {
 
   /// 标题
