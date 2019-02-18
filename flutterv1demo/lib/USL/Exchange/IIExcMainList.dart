@@ -30,6 +30,8 @@ class IIExcMainList extends StatefulWidget {
 
 class IIExcMainListState extends State<IIExcMainList> {
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<
+      RefreshIndicatorState>();
   
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,12 @@ class IIExcMainListState extends State<IIExcMainList> {
           ),
         ],
       ),
-      body: ListView.separated(
+      body: new RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _getData,
+        child: ListView.separated(
+          //这句是在list里面的内容不足一屏时，list可能会滑不动，加上就一直都可以滑动
+        physics: AlwaysScrollableScrollPhysics(),
         itemCount:widget.models.length,
         separatorBuilder: (context, index) => Divider(height: .0),
         itemBuilder: (BuildContext context, int index){
@@ -125,7 +132,6 @@ class IIExcMainListState extends State<IIExcMainList> {
                     color: Colors.grey,
                   ),
                   maxLines: 2,
-                  //overflow: TextOverflow.ellipsis
                 ),
               ),
               //发送时间
@@ -157,6 +163,7 @@ class IIExcMainListState extends State<IIExcMainList> {
           );
         },
       ),
+      ),
     );
     //return null;
   }
@@ -165,6 +172,16 @@ class IIExcMainListState extends State<IIExcMainList> {
   Future<void> getMoreData() async {
     List<IIExcMainListModel> models = await IIExcBll().getListByPageNum(widget.folderid, 20, widget.models.length - 1);
     widget.models.addAll(models);
+    setState((){
+      //重新构建列表
+    });
+  }
+
+  /// 下拉刷新
+  Future<Null> _getData() async {
+    List<IIExcMainListModel> models = await IIExcBll().getListByPageNum(widget.folderid, 20, 0);
+    //widget.models.addAll(models);
+    widget.models = models;
     setState((){
       //重新构建列表
     });
