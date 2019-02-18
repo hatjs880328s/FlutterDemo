@@ -101,7 +101,16 @@ class IIExcMainListState extends State<IIExcMainList> {
               ),
             );
           }
-          return Container(
+          // GestureDetector也是一个widget,他有child属性
+          // SnackBar是一个很好用的bar
+          return GestureDetector(
+            onTap: () {
+              final snackBar = new SnackBar(
+                content: new Text("Tap$index"),
+                duration: Duration(milliseconds: 500));
+              Scaffold.of(context).showSnackBar(snackBar);
+            },
+            child: Container(
             height: 85,
             child: Stack(
             alignment: Alignment.center,
@@ -159,6 +168,7 @@ class IIExcMainListState extends State<IIExcMainList> {
                 )
               ),
             ],
+          ),
           ),
           );
         },
