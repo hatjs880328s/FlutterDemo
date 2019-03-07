@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterv1demo/USL/Personcenter/PersonCenterUIV3.dart';
 import 'package:flutterv1demo/USL/Login/Login.dart';
+import 'package:flutterv1demo/USL/MoveCar/MoveCar.dart';
 
 class MainTabbar extends StatefulWidget {
   @override
@@ -35,7 +36,7 @@ class MaintabbarState extends State<MainTabbar> with SingleTickerProviderStateMi
           controller: controller,
           children: <Widget>[
             new Login(),
-            new Login(),
+            new MoveCar(),
             new PersonCenterUIV3(),
           ],
         ),
@@ -54,7 +55,7 @@ class MaintabbarState extends State<MainTabbar> with SingleTickerProviderStateMi
                 icon: new Icon(Icons.local_gas_station),
               ),
               new Tab(
-                text: "登录",
+                text: "挪车",
                 icon: new Icon(Icons.map),
               ),
               new Tab(
