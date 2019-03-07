@@ -48,13 +48,12 @@ class MoveCarState extends State<MoveCar> {
         ],
       ),
       body: Container(
+        //容器背景
         decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/exchangelogin_top.png'),
+                image: AssetImage('images/movecar_big_bg.png'),
                 fit:BoxFit.cover,
                 ),
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
         child:Column(
         // 输入框
