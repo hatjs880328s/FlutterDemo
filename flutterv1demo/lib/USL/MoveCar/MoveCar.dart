@@ -13,10 +13,19 @@ class MoveCar extends StatefulWidget {
 
 class MoveCarState extends State<MoveCar> {
 
+  /// 城市信息
+  List<dynamic> cityInfos;
+
+  /// 省信息
+  List<String> provinces;
+
+  /// 网络获取的大数据结构
+  List<dynamic> bigInfos;
+
+  
   @override 
   initState() {
     super.initState();
-    bll.getProvinces();
   }
 
   MoveCarBll bll = MoveCarBll();
@@ -85,15 +94,21 @@ class MoveCarState extends State<MoveCar> {
                     ),
                   onPressed: () async {
                     //print('省-市选择按钮被点击了');
-                    Navigator.push(context, new MaterialPageRoute(builder: (context) {
-                      return new CupertinoPickerDemo();//IIExcLogin();
-                    }));
                   },
-                  child: Text(
-                    '鲁 A',
-                    style:TextStyle(
-                      color:Colors.blue,
-                      fontSize: 22,
+                  // child: Text(
+                  //   '鲁 A',
+                  //   style:TextStyle(
+                  //     color:Colors.blue,
+                  //     fontSize: 22,
+                  //   )
+                  // ),
+                  child: CupertinoPickerDemo(
+                    Text(
+                      '鲁 A',
+                      style:TextStyle(
+                        color:Colors.blue,
+                        fontSize: 22,
+                      ),
                     )
                   ),
                 )
@@ -159,14 +174,13 @@ class MoveCarState extends State<MoveCar> {
             alignment: Alignment.bottomLeft,
             margin:EdgeInsets.only(left: leftDis,right: leftDis, top: 40),
             padding:EdgeInsets.only(left: 20),
-            // child:Text(
-            //   '车主',
-            //   style:TextStyle(
-            //     color: Colors.black,
-            //     fontSize: 20,
-            //   ),
-            //   ),
-            child: CupertinoPickerDemo(),
+            child:Text(
+              '车主',
+              style:TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+              ),
+              ),
           ),
         ],
       ),

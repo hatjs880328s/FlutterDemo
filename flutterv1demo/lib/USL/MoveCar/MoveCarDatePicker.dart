@@ -1,44 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterv1demo/BLL/MoveCar/MoveCarBLL.dart';
 
 const double _kPickerSheetHeight = 216.0;
 const double _kPickerItemHeight = 32.0;
 
-const List<String> coolColorNames = <String>[
-  'Sarcoline',
-  'Coquelicot',
-  'Smaragdine',
-  'Mikado',
-  'Glaucous',
-  'Wenge',
-  'Fulvous',
-  'Xanadu',
-  'Falu',
-  'Eburnean',
-  'Amaranth',
-  'Australien',
-  'Banan',
-  'Falu',
-  'Gingerline',
-  'Incarnadine',
-  'Labrador',
-  'Nattier',
-  'Pervenche',
-  'Sinoper',
-  'Verditer',
-  'Watchet',
-  'Zaffre',
-];
-
 class CupertinoPickerDemo extends StatefulWidget {
+
   static const String routeName = '/cupertino/picker';
+
+  
+
+  Widget showWidget;
+
+  CupertinoPickerDemo(this.showWidget);
 
   @override
   _CupertinoPickerDemoState createState() => _CupertinoPickerDemoState();
 }
 
 class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
+
   int _selectedColorIndex = 0;
+
+  MoveCarBll bll = MoveCarBll();
+
+  /// 城市信息
+  List<dynamic> cityInfos;
+
+  /// 网络获取的大数据结构
+  List<dynamic> bigInfos;
+
+  List<String> provinces = [];
+
+  List<List<String>> cityCharList = [];
+
+  getDate() async {
+    this.bigInfos = await bll.getProvinces();
+    this.cityInfos = bll.progressCity(this.bigInfos);
+    this.provinces = bll.progressProvinces(this.bigInfos);
+    
+  }
 
 /// 创建两个picker
   Widget _buildBottomPicker(Widget pickerLeft, Widget pickerRight) {
@@ -102,6 +104,7 @@ class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
         FixedExtentScrollController(initialItem: _selectedColorIndex);
     return GestureDetector(
       onTap: () async {
+        await this.getDate();
         await showCupertinoModalPopup<void>(
           context: context,
           builder: (BuildContext context) {
@@ -117,9 +120,9 @@ class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
                     setState(() => _selectedColorIndex = index);
                   },
                   children:
-                      List<Widget>.generate(coolColorNames.length, (int index) {
+                    List<Widget>.generate(provinces.length, (int index) {
                     return Center(
-                      child: Text(coolColorNames[index]),
+                      child: Text(provinces[index]),
                     );
                   }),
                 ),
@@ -134,9 +137,9 @@ class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
                     setState(() => _selectedColorIndex = index);
                   },
                   children:
-                      List<Widget>.generate(coolColorNames.length, (int index) {
+                    List<Widget>.generate(provinces.length, (int index) {
                     return Center(
-                      child: Text(coolColorNames[index]),
+                      child: Text(provinces[index]),
                     );
                   }),
                 ));
@@ -144,7 +147,7 @@ class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
         );
       },
       child: Container(
-        child: Text('hello'),
+        child: widget.showWidget,//Text('hello'),
       ),
     );
   }
@@ -155,4 +158,6 @@ class _CupertinoPickerDemoState extends State<CupertinoPickerDemo> {
       child: _buildColorPicker(context),
     );
   }
+
+
 }
