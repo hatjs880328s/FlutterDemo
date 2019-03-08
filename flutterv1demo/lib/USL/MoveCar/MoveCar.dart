@@ -85,6 +85,9 @@ class MoveCarState extends State<MoveCar> {
                     ),
                   onPressed: () async {
                     //print('省-市选择按钮被点击了');
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) {
+                      return new CupertinoPickerDemo();//IIExcLogin();
+                    }));
                   },
                   child: Text(
                     '鲁 A',
@@ -156,13 +159,14 @@ class MoveCarState extends State<MoveCar> {
             alignment: Alignment.bottomLeft,
             margin:EdgeInsets.only(left: leftDis,right: leftDis, top: 40),
             padding:EdgeInsets.only(left: 20),
-            child:Text(
-              '车主',
-              style:TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-              ),
-              ),
+            // child:Text(
+            //   '车主',
+            //   style:TextStyle(
+            //     color: Colors.black,
+            //     fontSize: 20,
+            //   ),
+            //   ),
+            child: CupertinoPickerDemo(),
           ),
         ],
       ),
