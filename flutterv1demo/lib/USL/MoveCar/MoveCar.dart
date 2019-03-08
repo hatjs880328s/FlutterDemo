@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutterv1demo/BLL/MoveCar/MoveCarBLL.dart';
+import 'package:flutterv1demo/USL/MoveCar/MoveCarDatePicker.dart';
+import 'package:flutter/cupertino.dart';
 
 /// 挪车功能主页面
 class MoveCar extends StatefulWidget {
@@ -13,9 +16,10 @@ class MoveCarState extends State<MoveCar> {
   @override 
   initState() {
     super.initState();
-    // focusScopeNode = FocusScope.of(context);
-    // focusScopeNode.requestFocus(node);
+    bll.getProvinces();
   }
+
+  MoveCarBll bll = MoveCarBll();
 
   /// 汽车排号con
   TextEditingController carNoCon = TextEditingController(text: '');
@@ -79,8 +83,8 @@ class MoveCarState extends State<MoveCar> {
                   shape: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue, width: 2)
                     ),
-                  onPressed: (){
-                    print('省-市选择按钮被点击了');
+                  onPressed: () async {
+                    //print('省-市选择按钮被点击了');
                   },
                   child: Text(
                     '鲁 A',
@@ -110,6 +114,7 @@ class MoveCarState extends State<MoveCar> {
               color: Colors.blue,
               onPressed: () {
                 //这里只是搜索选中后的联系事件
+                //print(scrollCon.selectedItem);
               },
               child:Text(
                 '请输入',

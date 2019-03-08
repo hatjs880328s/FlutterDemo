@@ -7,4 +7,7 @@ class IIHTTPStaticInfos {
   static String iiexcLogin = "https://emm-inspur.inspuronline.com/api/ews/v1.0/UserProfile/MailBind";
   static String iiexcFolder = "https://emm-inspur.inspuronline.com/api/ews/v1.0/Folder";
   static String iiexcList = "https://emm-inspur.inspuronline.com/api/ews/v1.0/Mail/List";
+
+  /// 挪车-获取省份信息请求地址
+  static String moveCarProvince = "https://ecm.inspur.com/inspur_esg/api/v0/car/province";
 }

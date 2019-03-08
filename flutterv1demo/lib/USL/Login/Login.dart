@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutterv1demo/BLL/Login/LoginBll.dart';
 import "package:flutterv1demo/USL/Exchange/IIExcLogin.dart";
+import 'package:flutterv1demo/USL/MoveCar/MoveCar.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -220,7 +221,7 @@ class LoginState extends State<Login> {
     Fluttertoast.cancel();
     if (result == true) {
       Navigator.push(context, new MaterialPageRoute(builder: (context) {
-        return new IIExcLogin();
+        return new MoveCar();//IIExcLogin();
     }));
     } else { 
       Fluttertoast.showToast(
