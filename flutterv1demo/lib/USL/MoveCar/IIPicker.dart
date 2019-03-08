@@ -15,16 +15,22 @@ class IIPicker extends StatefulWidget {
   /// 省信息
   final List<String> provinces;
 
+  /// 回调函数
+
+
   @override
   IIPickerState createState() => IIPickerState();
 }
 
 class IIPickerState extends State<IIPicker> {
+
+  /// 一级省选择idx
   int _selectedColorIndex = 0;
 
-  MoveCarBll bll = MoveCarBll();
+  /// 二级市选择idx
+  int rightSelectIDX = 0;
 
-  
+  MoveCarBll bll = MoveCarBll();
 
   /// 左边的picker
   CupertinoPicker pickerOne;
@@ -32,7 +38,9 @@ class IIPickerState extends State<IIPicker> {
   /// 右边的picker
   CupertinoPicker pickerTwo;
 
+  FixedExtentScrollController leftCon = FixedExtentScrollController(initialItem: 0);
 
+  FixedExtentScrollController rightCon = FixedExtentScrollController(initialItem: 0);
 
   /// 创建两个picker
   Widget _buildBottomPicker(Widget pickerLeft, Widget pickerRight) {
@@ -90,12 +98,16 @@ class IIPickerState extends State<IIPicker> {
     //await getDate();
     pickerOne = CupertinoPicker(
       magnification: 1.0,
+      scrollController:leftCon,
       itemExtent: _kPickerItemHeight,
       backgroundColor: CupertinoColors.white,
       useMagnifier: true,
       onSelectedItemChanged: (int index) {
         // 当正中间选项改变时的回调
-        setState(() => _selectedColorIndex = index);
+        setState(() {
+          _selectedColorIndex = index;
+          rightSelectIDX = 0;
+        });
       },
       children: List<Widget>.generate(widget.provinces.length, (int index) {
         return Center(
@@ -105,12 +117,13 @@ class IIPickerState extends State<IIPicker> {
     );
     pickerTwo = CupertinoPicker(
       magnification: 1.0,
+      scrollController:rightCon,
       itemExtent: _kPickerItemHeight,
       backgroundColor: CupertinoColors.white,
       useMagnifier: true,
       onSelectedItemChanged: (int index) {
         // 当正中间选项改变时的回调
-        print("hello, second $index");
+        rightSelectIDX = index;
       },
       children: List<Widget>.generate(widget.cityInfos[_selectedColorIndex].length,
           (int index) {
@@ -127,6 +140,7 @@ class IIPickerState extends State<IIPicker> {
 
   @override
   Widget build(BuildContext context) {
+    rightCon = FixedExtentScrollController(initialItem: rightSelectIDX);
     return Container(
       child: _buildColorPicker(context),
     );
