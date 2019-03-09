@@ -16,7 +16,7 @@ class IIPicker extends StatefulWidget {
   final List<String> provinces;
 
   /// 回调函数
-
+  dynamic backAction;
 
   @override
   IIPickerState createState() => IIPickerState();
@@ -44,6 +44,7 @@ class IIPickerState extends State<IIPicker> {
 
   /// 创建两个picker
   Widget _buildBottomPicker(Widget pickerLeft, Widget pickerRight) {
+    //widget.backAction('dsfd');
     return Stack(children: <Widget>[
       Positioned(
         top: MediaQuery.of(context).size.height - _kPickerSheetHeight,
@@ -104,9 +105,12 @@ class IIPickerState extends State<IIPicker> {
       useMagnifier: true,
       onSelectedItemChanged: (int index) {
         // 当正中间选项改变时的回调
+        _selectedColorIndex = index;
+        rightSelectIDX = 0;
+        this.rightCon.jumpToItem(0);
+        widget.backAction(_selectedColorIndex, rightSelectIDX);
         setState(() {
-          _selectedColorIndex = index;
-          rightSelectIDX = 0;
+          
         });
       },
       children: List<Widget>.generate(widget.provinces.length, (int index) {
@@ -124,6 +128,7 @@ class IIPickerState extends State<IIPicker> {
       onSelectedItemChanged: (int index) {
         // 当正中间选项改变时的回调
         rightSelectIDX = index;
+        widget.backAction(_selectedColorIndex, rightSelectIDX);
       },
       children: List<Widget>.generate(widget.cityInfos[_selectedColorIndex].length,
           (int index) {
@@ -140,7 +145,6 @@ class IIPickerState extends State<IIPicker> {
 
   @override
   Widget build(BuildContext context) {
-    rightCon = FixedExtentScrollController(initialItem: rightSelectIDX);
     return Container(
       child: _buildColorPicker(context),
     );

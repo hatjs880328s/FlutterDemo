@@ -37,6 +37,12 @@ class MoveCarState extends State<MoveCar> {
 
   double leftDis = 35;
 
+  /// 省 选择的idx
+  int provinceSelectidx = 0;
+
+  /// 市 选择的idx
+  int citySelectidx = 0;
+
     /// 获取网络数据并处理
   getDate() async {
     this.bigInfos = await bll.getProvinces();
@@ -102,10 +108,19 @@ class MoveCarState extends State<MoveCar> {
                           await showCupertinoModalPopup<void>(
                               context: context,
                               builder: (BuildContext context) {
-                                return IIPicker(this.cityInfos, this.provinces);
+                                IIPicker pick = IIPicker(this.cityInfos, this.provinces);
+                                pick.backAction = (provinceIdx, cityIdx) {
+                                  this.provinceSelectidx =provinceIdx;
+                                  this.citySelectidx =cityIdx;
+                                  setState(() {
+
+                                  });
+                                };
+                                return pick;
                               });
                         },
-                        child: Text('鲁 A',
+                        child: Text(
+                            this.getShowStrInfo(this.provinceSelectidx, this.citySelectidx),
                             style: TextStyle(
                               color: Colors.blue,
                               fontSize: 22,
@@ -183,5 +198,13 @@ class MoveCarState extends State<MoveCar> {
         ),
       ),
     );
+  }
+
+  /// 获取应该显示的 信息
+  String getShowStrInfo(int provinceIdx, int cityIdx) {
+    if (null == this.cityInfos) {
+      return '鲁 A';
+    }
+    return this.provinces[provinceIdx].toString() + ' ' + this.cityInfos[provinceIdx][cityIdx].toString();
   }
 }
