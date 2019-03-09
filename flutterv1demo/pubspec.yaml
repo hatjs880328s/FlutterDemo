@@ -20,6 +20,8 @@ dependencies:
   tuple: ^1.0.2
   # 国际化 & 格式化
   intl: any
+  # 基础功能
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:

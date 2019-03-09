@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterv1demo/BLL/MoveCar/MoveCarBLL.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutterv1demo/USL/MoveCar/IIPicker.dart';
+import 'package:flutterv1demo/Model/MoveCar/MoveCarModel.dart';
+import 'package:flutterv1demo/USL/MoveCar/IIMoveCarList.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// 挪车功能主页面
 class MoveCar extends StatefulWidget {
@@ -13,10 +16,12 @@ class MoveCar extends StatefulWidget {
 
 class MoveCarState extends State<MoveCar> {
   /// 城市信息
-  List<dynamic> cityInfos;
+  List<dynamic> cityInfos = [
+    ['A']
+  ];
 
   /// 省信息
-  List<String> provinces;
+  List<String> provinces = ['鲁'];
 
   /// 网络获取的大数据结构
   List<dynamic> bigInfos;
@@ -43,7 +48,13 @@ class MoveCarState extends State<MoveCar> {
   /// 市 选择的idx
   int citySelectidx = 0;
 
-    /// 获取网络数据并处理
+  /// 需要展示的车信息model
+  MoveCarModel selectedCarModel;
+
+  /// 搜索按钮显示文案
+  String searchBtnShowInfo = '请输入';
+
+  /// 获取网络数据并处理
   getDate() async {
     this.bigInfos = await bll.getProvinces();
     this.cityInfos = bll.progressCity(this.bigInfos);
@@ -88,12 +99,26 @@ class MoveCarState extends State<MoveCar> {
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
+              height: 50,
               child: TextField(
                 controller: carNoCon,
                 focusNode: node,
+                autofocus: true,
+                onChanged: (txtInfo) async {
+                  List<MoveCarModel> lists = await this.selectInfos(txtInfo);
+                  if (lists.length == 0) {
+                    return;
+                  }
+                  IIMoveCarList menu = IIMoveCarList(lists);
+                  menu.callBackAction = (carModel) {
+                    this.setCarNoAndSHowBotInfo(carModel);
+                  };
+                  await menu.showCarInfos(context);
+                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "填写尾号搜索...",
+                  //labelText: ((null == this.selectedCarModel) ? '' : this.selectedCarModel.id.number),
                   prefixIcon: Container(
                       height: 25,
                       width: 80,
@@ -108,19 +133,19 @@ class MoveCarState extends State<MoveCar> {
                           await showCupertinoModalPopup<void>(
                               context: context,
                               builder: (BuildContext context) {
-                                IIPicker pick = IIPicker(this.cityInfos, this.provinces);
+                                IIPicker pick =
+                                    IIPicker(this.cityInfos, this.provinces);
                                 pick.backAction = (provinceIdx, cityIdx) {
-                                  this.provinceSelectidx =provinceIdx;
-                                  this.citySelectidx =cityIdx;
-                                  setState(() {
-
-                                  });
+                                  this.provinceSelectidx = provinceIdx;
+                                  this.citySelectidx = cityIdx;
+                                  setState(() {});
                                 };
                                 return pick;
                               });
                         },
                         child: Text(
-                            this.getShowStrInfo(this.provinceSelectidx, this.citySelectidx),
+                            this.getShowStrInfo(
+                                this.provinceSelectidx, this.citySelectidx),
                             style: TextStyle(
                               color: Colors.blue,
                               fontSize: 22,
@@ -131,6 +156,7 @@ class MoveCarState extends State<MoveCar> {
                     icon: Icon(Icons.close),
                     onPressed: () {
                       carNoCon.clear();
+                      clearSelectedInfo();
                     },
                   ),
                 ),
@@ -144,11 +170,10 @@ class MoveCarState extends State<MoveCar> {
               child: FlatButton(
                   color: Colors.blue,
                   onPressed: () {
-                    //这里只是搜索选中后的联系事件
-                    //print(scrollCon.selectedItem);
+                    this.callSomePerson();
                   },
                   child: Text(
-                    '请输入',
+                    this.searchBtnShowInfo,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 17,
@@ -161,7 +186,10 @@ class MoveCarState extends State<MoveCar> {
               margin: EdgeInsets.only(left: leftDis, right: leftDis, top: 40),
               padding: EdgeInsets.only(left: 20),
               child: Text(
-                '车型',
+                '车型' +
+                    ((null == this.selectedCarModel)
+                        ? ''
+                        : ' : ' + this.selectedCarModel.carBrand),
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -174,7 +202,10 @@ class MoveCarState extends State<MoveCar> {
               margin: EdgeInsets.only(left: leftDis, right: leftDis, top: 40),
               padding: EdgeInsets.only(left: 20),
               child: Text(
-                '颜色',
+                '颜色' +
+                    ((null == this.selectedCarModel)
+                        ? ''
+                        : ' : ' + this.selectedCarModel.carColor),
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -187,7 +218,10 @@ class MoveCarState extends State<MoveCar> {
               margin: EdgeInsets.only(left: leftDis, right: leftDis, top: 40),
               padding: EdgeInsets.only(left: 20),
               child: Text(
-                '车主',
+                '车主' +
+                    ((null == this.selectedCarModel)
+                        ? ''
+                        : ' : ' + this.selectedCarModel.carOwner),
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -200,11 +234,50 @@ class MoveCarState extends State<MoveCar> {
     );
   }
 
-  /// 获取应该显示的 信息
+  /// 获取应该显示的 信息 - 下拉框弹出
   String getShowStrInfo(int provinceIdx, int cityIdx) {
-    if (null == this.cityInfos) {
-      return '鲁 A';
+    return this.provinces[provinceIdx].toString() +
+        ' ' +
+        this.cityInfos[provinceIdx][cityIdx].toString();
+  }
+
+  /// 选择车辆信息
+  Future<List<MoveCarModel>> selectInfos(String carNo) async {
+    if (carNo.length < 3) {
+      return [];
     }
-    return this.provinces[provinceIdx].toString() + ' ' + this.cityInfos[provinceIdx][cityIdx].toString();
+    List<MoveCarModel> infos = await this.bll.selectByProvinces(
+        this.provinces[provinceSelectidx].toString(),
+        this.cityInfos[provinceSelectidx][citySelectidx],
+        carNo);
+    return infos;
+  }
+
+  /// 设置选择车辆后设置显示信息
+  void setCarNoAndSHowBotInfo(MoveCarModel model) {
+    this.selectedCarModel = model;
+    searchBtnShowInfo = '联系TA';
+    carNoCon = TextEditingController(text: model.id.number);
+    setState(() {});
+  }
+
+  /// 清空选中的信息
+  void clearSelectedInfo() {
+    this.selectedCarModel = null;
+    searchBtnShowInfo = '请输入';
+    setState((){});
+  }
+
+  /// 拨打电话
+  void callSomePerson() async {
+    if (null == this.selectedCarModel) {
+      return;
+    }
+    String url = 'tel:' + this.selectedCarModel.ownerPhone;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

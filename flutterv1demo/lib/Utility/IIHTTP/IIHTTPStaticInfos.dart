@@ -10,4 +10,6 @@ class IIHTTPStaticInfos {
 
   /// 挪车-获取省份信息请求地址
   static String moveCarProvince = "https://ecm.inspur.com/inspur_esg/api/v0/car/province";
+  /// 挪车-查找api
+  static String moveCarSelectInfosWithProvince = "https://ecm.inspur.com/inspur_esg/api/v0/car/platenumber?";
 }

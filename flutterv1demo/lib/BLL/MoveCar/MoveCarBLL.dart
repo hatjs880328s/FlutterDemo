@@ -1,6 +1,8 @@
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestUti.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPRequestEnum.dart';
 import 'package:flutterv1demo/Utility/IIHTTP/IIHTTPStaticInfos.dart';
+import 'package:flutterv1demo/Model/MoveCar/MoveCarModel.dart';
+
 /// 挪车 - bll
 class MoveCarBll {
 
@@ -38,5 +40,17 @@ class MoveCarBll {
       list.add(valuesList);
     }
     return list;
+  }
+
+  /// 查找车辆信息
+  Future<List<MoveCarModel>> selectByProvinces(String province, String city, String carNO) async {
+    String url =IIHTTPStaticInfos.moveCarSelectInfosWithProvince + 'province=$province&city=$city&number=$carNO';
+    List<dynamic> infos = await IIHTTPRequestUti().request(IIHTTPRequestEnum.gEt, null, url);
+    List<MoveCarModel> result = [];
+    for (int i = 0 ; i < infos.length ; i++) {
+      MoveCarModel eachModel = MoveCarModel.fromJson(infos[i]);
+      result.add(eachModel);
+    }
+    return result;
   }
 }
