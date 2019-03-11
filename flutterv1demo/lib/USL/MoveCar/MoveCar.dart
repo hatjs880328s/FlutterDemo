@@ -105,6 +105,10 @@ class MoveCarState extends State<MoveCar> {
                 focusNode: node,
                 autofocus: true,
                 onChanged: (txtInfo) async {
+                  if (txtInfo.length == 0) {
+                    this.clearSelectedInfo();
+                    return;
+                  }
                   List<MoveCarModel> lists = await this.selectInfos(txtInfo);
                   if (lists.length == 0) {
                     return;
@@ -118,7 +122,6 @@ class MoveCarState extends State<MoveCar> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "填写尾号搜索...",
-                  //labelText: ((null == this.selectedCarModel) ? '' : this.selectedCarModel.id.number),
                   prefixIcon: Container(
                       height: 25,
                       width: 80,
