@@ -3,9 +3,11 @@ import 'package:flutterv1demo/Model/MoveCar/MoveCarModel.dart';
 import 'dart:ui';
 
 class IIMoveCarList {
-  IIMoveCarList(this.dataSource);
+  IIMoveCarList(this.dataSource, this.distanceTop);
 
   final List<MoveCarModel> dataSource;
+
+  final double distanceTop;
 
   BuildContext context;
 
@@ -14,10 +16,9 @@ class IIMoveCarList {
 
   Future<void> showCarInfos(BuildContext context) async {
     this.context = context;
-    double top = MediaQuery.of(context).padding.top + 100 + 54;
     await showMenu(
         context: context,
-        position: RelativeRect.fromLTRB(40.0, top, 40.0, 10.0),
+        position: RelativeRect.fromLTRB(40.0, distanceTop + 5, 40.0, 10.0),
         items: createItems());
   }
 

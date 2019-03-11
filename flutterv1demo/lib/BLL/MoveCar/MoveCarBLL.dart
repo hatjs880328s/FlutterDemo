@@ -9,15 +9,6 @@ class MoveCarBll {
   /// 获取当前省以及下面的市信息
   Future<List<dynamic>> getProvinces() async {
     List<dynamic> infos = await IIHTTPRequestUti().request(IIHTTPRequestEnum.gEt, null, IIHTTPStaticInfos.moveCarProvince);
-    // for (int i = 0 ; i < infos.length ; i++) {
-    //   Map<String,dynamic> reali = infos[i];
-    //   String realList = reali.keys.first;
-    //   //key- 鲁
-    //   print(realList);
-    //   //values  - a,b,c,d...
-    //   List<dynamic> valuesList = reali.values.first;
-    //   print(valuesList[0].toString());
-    // }
     return infos;
   }
 
@@ -52,5 +43,16 @@ class MoveCarBll {
       result.add(eachModel);
     }
     return result;
+  }
+
+  /// 根据入参返回所在的idx
+  int getRealProvinceIdx(dynamic bigList,String realInfo) {
+    if (null == bigList) { return 0;}
+    for (int i = 0 ; i < bigList.length ; i++ ) {
+      if (bigList[i].toString() ==realInfo) {
+        return i;
+      }
+    }
+    return 0;
   }
 }
